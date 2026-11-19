@@ -1,0 +1,13 @@
+{
+  "name": "cipta-jaya-product-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend API for the Cipta Jaya product detail page",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
