@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8ff">
   <title>Kelola Produk | Cipta Jaya</title>
-  <link rel="stylesheet" href="css/dashboard.css">
-  <script src="script/dashboard.js" defer></script>
+  <link rel="stylesheet" href="dashboard.css/dashboard.css">
+  <script src="dashboard.java/dashboard.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <a class="brand" href="#" aria-label="Cipta Jaya Admin Portal">
-        <img src="assets/logo_cipta_jaya.png" alt="">
+        <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="">
         <span><b>CIPTA JAYA</b><small>Admin Portal</small></span>
       </a>
       <div class="staff"><div class="avatar avatar-staff">SG</div><span><b>Staff Gudang</b><small>Superadmin</small></span></div>
@@ -21,14 +21,14 @@
         <a href="#pesanan"><span>▣</span> Pesanan Masuk</a>
         <a href="#toko"><span>▤</span> Lihat Toko Publik</a>
       </nav>
-      <a class="logout" href="login.html"><span>⇥</span> Keluar Sistem</a>
+      <a class="logout" href="../login/login.html"><span>⇥</span> Keluar Sistem</a>
     </aside>
 
     <main class="main-area">
       <header class="topbar">
         <button class="menu-button" id="menuButton" aria-label="Buka menu" aria-expanded="false">☰</button>
         <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Cari SKU, nama produk, kategori..." aria-label="Cari produk"></label>
-        <div class="top-actions"><a href="#whatsapp" class="whatsapp"><span>▤</span> CS WhatsApp</a><span class="top-divider"></span><div class="user"><div class="avatar">BP</div><span><b>Budi P.</b><small>Staf Toko</small></span></div><a class="exit" href="login.html">⇥ <span>Keluar</span></a></div>
+        <div class="top-actions"><a href="#whatsapp" class="whatsapp"><span>▤</span> CS WhatsApp</a><span class="top-divider"></span><div class="user"><div class="avatar">BP</div><span><b>Budi P.</b><small>Staf Toko</small></span></div><a class="exit" href="../login/login.html">⇥ <span>Keluar</span></a></div>
       </header>
 
       <section class="content">
@@ -50,7 +50,7 @@
     </main>
   </div>
   <div class="scrim" id="scrim"></div>
-  <dialog class="product-dialog" id="productDialog"><form id="productForm"><div class="dialog-heading"><div><h2 id="dialogTitle">Tambah Produk Baru</h2><p>Lengkapi informasi produk katalog.</p></div><button type="button" class="close-dialog" id="closeDialog" aria-label="Tutup">×</button></div><input type="hidden" name="id"><label>Nama produk<input name="name" required placeholder="Nama produk"></label><div class="form-grid"><label>SKU<input name="sku" required placeholder="SKU produk"></label><label>Kategori<input name="category" required placeholder="Kategori"></label></div><div class="form-grid"><label>Harga satuan (Rp)<input name="price" type="number" min="0" required placeholder="0"></label><label>Status stok<select name="inStock"><option value="true">Ready</option><option value="false">Stok habis</option></select></label></div><label>URL foto<input name="image" type="url" placeholder="https://..."></label><div class="form-checks"><label><input name="featured" type="checkbox"> Produk unggulan</label><label><input name="published" type="checkbox" checked> Dipublikasikan</label></div><div class="dialog-actions"><button type="button" class="secondary-button" id="cancelDialog">Batal</button><button type="submit" class="primary-button">Simpan Produk</button></div></form></dialog>
+  <dialog class="product-dialog" id="productDialog"><form id="productForm"><div class="dialog-heading"><div><h2 id="dialogTitle">Tambah Produk Baru</h2><p>Lengkapi informasi produk katalog.</p></div><button type="button" class="close-dialog" id="closeDialog" aria-label="Tutup">×</button></div><input type="hidden" name="id"><label>Nama produk<input name="name" required placeholder="Nama produk"></label><div class="form-grid"><label>SKU<input name="sku" required placeholder="SKU produk"></label><label>Kategori<input name="category" required placeholder="Kategori"></label></div><div class="form-grid"><label>Harga satuan (Rp)<input name="price" type="number" min="0" required placeholder="0"></label><label>Status stok<select name="inStock"><option value="true">Ready</option><option value="false">Stok habis</option></select></label></div><label>URL / path foto<input name="image" type="text" placeholder="https://... atau /uploads/..."></label><div class="form-checks"><label><input name="featured" type="checkbox"> Produk unggulan</label><label><input name="published" type="checkbox" checked> Dipublikasikan</label></div><div class="dialog-actions"><button type="button" class="secondary-button" id="cancelDialog">Batal</button><button type="submit" class="primary-button">Simpan Produk</button></div></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

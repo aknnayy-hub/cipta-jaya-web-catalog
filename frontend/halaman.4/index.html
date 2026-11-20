@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Tinjau keranjang material bangunan, isi informasi pengiriman, dan lanjutkan pemesanan ke TB. Cipta Jaya.">
+  <title>Keranjang Belanja | Cipta Jaya</title>
+  <link rel="icon" href="../login/login&logo.assets/logo_cipta_jaya.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../halaman.awal/index.html" aria-label="Cipta Jaya, beranda">
+        <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="">
+        <span><b>CIPTA JAYA</b><small>Mitra Resmi Semen Merah Putih</small></span>
+      </a>
+
+      <form class="header-search" id="headerSearchForm" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        <input id="headerSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..." aria-label="Cari produk">
+      </form>
+
+      <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primaryNav" aria-label="Navigasi utama">
+        <a class="nav-link" href="../halaman.awal/index.html">Beranda</a>
+        <a class="nav-link" href="../halaman.2/index.html">Katalog Produk</a>
+        <a class="nav-link" href="../dashboard/dashboard.html">Kelola Produk</a>
+        <a class="nav-link" href="../login/login.html">Login Admin</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="cart-button active" id="headerCart" href="index.html" aria-label="Keranjang, 0 barang">
+          <span class="cart-icon-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            <span class="cart-count" id="headerCartCount">0</span>
+          </span>
+          <span class="cart-total" id="headerCartTotal">Rp 0</span>
+        </a>
+        <a class="whatsapp-button" id="headerWhatsapp" href="#kontak">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path><path d="M8.2 8.1c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.8c-.2.2-.2.4 0 .7.5.9 1.3 1.7 2.2 2.2.3.2.5.2.7 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .8-.4 1.5-1 1.8-.7.4-1.5.6-2.4.3-1.1-.3-2.5-.9-3.9-2.2s-2.4-2.9-2.7-4c-.3-1 0-1.8.4-2.2Z"></path></svg>
+          <span>WA Toko</span>
+        </a>
+        <span class="profile-avatar" aria-label="Toko Cipta Jaya">CJ</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-width">
+    <section class="checkout-intro" aria-labelledby="pageTitle">
+      <div class="intro-heading">
+        <div>
+          <span class="eyebrow"><i aria-hidden="true">▣</i> Pemesanan Cepat | Langsung Kirim</span>
+          <h1 id="pageTitle">Keranjang Belanja Material Anda</h1>
+          <p>Kelola daftar material proyek Anda dengan estimasi transparan tanpa biaya tersembunyi.</p>
+        </div>
+        <span class="trust-pill"><i aria-hidden="true">✓</i> Distributor Resmi TB. Cipta Jaya</span>
+      </div>
+      <ol class="checkout-steps" aria-label="Tahapan pemesanan">
+        <li class="active" aria-current="step"><span>1</span><div><b>1. Tinjau Barang</b><small>Periksa kuantiti material</small></div></li>
+        <li><span>2</span><div><b>2. Rekap Pesanan</b><small>Data proyek &amp; alamat kirim</small></div></li>
+        <li><span>3</span><div><b>3. Kirim ke WhatsApp</b><small>Konfirmasi instan admin toko</small></div></li>
+      </ol>
+    </section>
+
+    <div class="checkout-layout">
+      <section class="cart-column" aria-labelledby="cartListTitle">
+        <div class="cart-card">
+          <div class="section-heading">
+            <h2 id="cartListTitle"><span class="heading-icon" aria-hidden="true">▤</span> Daftar Muatan Truk</h2>
+            <span id="productCount">0 Varian Produk</span>
+          </div>
+          <div class="cart-items" id="cartItems" aria-live="polite"></div>
+          <div class="cart-empty" id="cartEmpty" hidden>
+            <span aria-hidden="true">▧</span>
+            <b>Keranjang Anda masih kosong</b>
+            <p>Pilih material dari katalog untuk mulai menyusun kebutuhan proyek.</p>
+            <a href="../halaman.2/index.html">Kembali ke Katalog Produk</a>
+          </div>
+          <div class="cart-card-footer" id="cartCardFooter">
+            <a class="catalog-link" href="../halaman.2/index.html"><span aria-hidden="true">←</span> Tambah Barang Lain dari Katalog</a>
+            <span class="delivery-ready"><i aria-hidden="true">▣</i> Armada pick-up &amp; truk engkel siap kirim hari ini</span>
+          </div>
+        </div>
+
+        <aside class="cart-note">
+          <span class="note-icon" aria-hidden="true">i</span>
+          <p><b>Catatan Pengangkutan TB. Cipta Jaya:</b><br>Pembelian semen &amp; bata ringan otomatis disesuaikan dengan kapasitas angkut armada toko (Colt Diesel / Pick Up). Ongkir &amp; ketersediaan muatan akan dikonfirmasi admin via WhatsApp secara transparan.</p>
+        </aside>
+      </section>
+
+      <aside class="order-column" aria-label="Ringkasan dan data pesanan">
+        <section class="summary-card" aria-labelledby="summaryTitle">
+          <h2 id="summaryTitle">Ringkasan Pesanan</h2>
+          <dl class="summary-list">
+            <div><dt>Total Jenis Material</dt><dd id="summaryProductCount">0 Item Produk</dd></div>
+            <div><dt>Total Volume / Muatan</dt><dd id="summaryQuantity">0 Unit</dd></div>
+            <div><dt>Estimasi Biaya Muat Toko</dt><dd class="free-shipping">GRATIS</dd></div>
+          </dl>
+          <div class="grand-total">
+            <span>Total Belanja Sementara</span>
+            <strong id="grandTotal">Rp 0</strong>
+            <small>(Non-Pajak)</small>
+          </div>
+
+          <form id="checkoutForm" novalidate>
+            <label class="form-field" for="customerName">Nama Pemesan / Kontraktor <span>*</span>
+              <span class="input-shell"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.3"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg><input id="customerName" name="name" type="text" autocomplete="name" placeholder="Contoh: Bpk. Hendra Gunawan" required maxlength="100"></span>
+            </label>
+            <label class="form-field" for="deliveryAddress">Lokasi Proyek / Alamat Kirim <span>*</span>
+              <span class="input-shell textarea-shell"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><textarea id="deliveryAddress" name="address" autocomplete="street-address" placeholder="Jl. Melati No. 14, RT 03/05 (Dekat Pos RW)" rows="2" required maxlength="500"></textarea></span>
+            </label>
+            <label class="form-field" for="deliveryNotes">Catatan Tambahan Armada
+              <span class="input-shell"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16M4 10h16M4 15h10M4 20h8"></path></svg><input id="deliveryNotes" name="notes" type="text" placeholder="Kirim besok pagi jam 08:30 WIB" maxlength="300"></span>
+            </label>
+            <p class="checkout-message" id="checkoutMessage" role="status" aria-live="polite"></p>
+            <button class="checkout-button" id="checkoutButton" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H9l-5 3V5Z"></path><path d="M8 9h8M8 13h5"></path></svg> Checkout &amp; Kirim ke WhatsApp</button>
+          </form>
+          <p class="secure-note"><i aria-hidden="true">✓</i> Tanpa Perlu Kartu Kredit &amp; Bebas Registrasi Rumit</p>
+        </section>
+
+        <section class="guarantee-card" aria-label="Jaminan produk">
+          <span class="guarantee-icon" aria-hidden="true">♧</span>
+          <p><b>Jaminan Pasti Asli Pabrik</b><span>TB. Cipta Jaya menjamin produk asli dengan berat sesuai timbangan dari Semen Merah Putih &amp; produsen resmi lainnya.</span></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="kontak">
+    <div class="footer-main page-width">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="../halaman.awal/index.html"><img src="../login/login&logo.assets/logo_cipta_jaya.png" alt=""><b>TB. CIPTA JAYA</b></a>
+        <p>Distributor resmi material bangunan bermutu tinggi. Mitra Resmi Semen Merah Putih dengan jaminan suplai cepat, transparan, dan terpercaya untuk proyek rumah hingga skala komersial.</p>
+        <span class="verified-badge">✦ Mitra Resmi Terverifikasi</span>
+      </div>
+      <div class="footer-column"><h2>Lokasi &amp; Jam Kerja</h2><address>Jl. Raya Utama Material No. 88, Kawasan Niaga Bangunan.<br>Buka Setiap Hari:<br><b>07:30 – 17:00 WIB</b></address></div>
+      <div class="footer-column"><h2>Kontak &amp; Pemesanan</h2><p>Layanan pemesanan aman &amp; cek stok real-time:</p><a class="contact-link" id="footerWhatsapp" href="#kontak">☎ &nbsp;0812-xxxx-xxxx</a></div>
+    </div>
+    <div class="footer-bottom"><div class="page-width"><span>© 2024 TB. Cipta Jaya - Mitra Resmi Semen Merah Putih. Hak Cipta Dilindungi.</span><nav aria-label="Tautan footer"><a href="../halaman.2/index.html">Katalog Lengkap</a><a href="../login/login.html">Area Pengelola</a></nav></div></div>
+  </footer>
+</body>
+</html>

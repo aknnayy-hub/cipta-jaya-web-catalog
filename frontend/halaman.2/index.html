@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Temukan semen, besi, bata, cat, dan material bangunan lainnya di katalog resmi Toko Cipta Jaya.">
+  <title>Katalog Material | Cipta Jaya</title>
+  <link rel="icon" href="../login/login&logo.assets/logo_cipta_jaya.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="sticky-top">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../halaman.awal/index.html" aria-label="Cipta Jaya, beranda">
+          <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="">
+          <span><b>CIPTA JAYA</b><small>Mitra Resmi Semen Merah Putih</small></span>
+        </a>
+
+        <label class="header-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+          <input id="catalogSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..." aria-label="Cari produk">
+        </label>
+
+        <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="primary-nav" id="primaryNav" aria-label="Navigasi utama">
+          <a class="nav-link" href="../halaman.awal/index.html">Beranda</a>
+          <a class="nav-link active" href="index.html" aria-current="page">Katalog Produk</a>
+          <a class="nav-link" href="../dashboard/dashboard.html">Kelola Produk</a>
+          <a class="nav-link" href="../login/login.html">Login Admin</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="cart-button" id="openCart" type="button" aria-label="Buka keranjang, 0 barang">
+            <span class="cart-icon-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+              <span class="cart-count" id="headerCartCount">0</span>
+            </span>
+            <span class="cart-total" id="headerCartTotal">Rp 0</span>
+          </button>
+          <a class="whatsapp-button" id="headerWhatsapp" href="#kontak">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path><path d="M8.2 8.1c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.8c-.2.2-.2.4 0 .7.5.9 1.3 1.7 2.2 2.2.3.2.5.2.7 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .8-.4 1.5-1 1.8-.7.4-1.5.6-2.4.3-1.1-.3-2.5-.9-3.9-2.2s-2.4-2.9-2.7-4c-.3-1 0-1.8.4-2.2Z"></path></svg>
+            <span>WA Toko</span>
+          </a>
+          <span class="profile-avatar" aria-label="Toko Cipta Jaya">CJ</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="sync-strip">
+      <div class="sync-inner">
+       
+        <span class="sync-promise"><i>✓</i> Tanpa Login • Transaksi Langsung WhatsApp / Checkout Cepat</span>
+      </div>
+    </div>
+  </div>
+
+  <label class="mobile-search page-width">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+    <input id="mobileSearch" type="search" placeholder="Cari produk, merek, spesifikasi..." aria-label="Cari produk">
+  </label>
+
+  <main>
+    <section class="catalog-intro page-width" aria-labelledby="pageTitle">
+      <p class="breadcrumb"><a href="../halaman.awal/index.html">KATALOG RESMI TOKO BAHAN BANGUNAN</a><span>•</span> TB. Cipta Jaya Utama</p>
+      <div class="intro-row">
+        <div>
+          <h1 id="pageTitle">Katalog Material Bahan Bangunan</h1>
+          <p class="intro-description">Menampilkan material berstatus <b>Dipublikasikan</b> dengan pembaruan status stok langsung dari gudang toko fisik kami. Pilih material, tentukan kuantitas, dan langsung simpan ke keranjang tanpa repot.</p>
+        </div>
+        <div class="inventory-summary" aria-label="Ringkasan katalog">
+          <div><small>Total Material Aktif</small><strong><span id="skuCount">48</span> SKU</strong></div>
+          <span class="summary-divider"></span>
+          <div><small>Armada Pengiriman</small><b class="shipping-ready"><i></i> Siap Kirim Hari Ini</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-panel page-width" aria-label="Pencarian dan filter produk">
+      <label class="catalog-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        <input id="desktopSearch" type="search" placeholder="Cari produk, merk, spesifikasi (contoh: Semen Merah Putih, Bata Hebel, Besi SNI)..." aria-label="Cari nama, merek, atau spesifikasi">
+      </label>
+      <label class="sort-select"><span class="visually-hidden">Urutkan produk</span>
+        <select id="sortSelect" aria-label="Urutkan produk">
+          <option value="popular">Urutkan: Terpopuler</option>
+          <option value="price-asc">Harga Terendah</option>
+          <option value="price-desc">Harga Tertinggi</option>
+          <option value="name">Nama A–Z</option>
+        </select>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7 4-4 4 4M16 17l-4 4-4-4M12 3v18"></path></svg>
+      </label>
+      <label class="visually-hidden" for="statusFilter">Filter status stok</label>
+      <select class="status-select" id="statusFilter">
+        <option value="all">Semua Status</option>
+        <option value="ready">Ready di Gudang</option>
+        <option value="out">Stok Habis</option>
+      </select>
+      <label class="ready-filter"><input id="readyOnly" type="checkbox"><span class="ready-dot"></span> Hanya Ready</label>
+    </section>
+
+    <nav class="category-tabs page-width" id="categoryTabs" aria-label="Filter kategori produk">
+      <button class="category-tab active" type="button" data-category="all">Semua Produk <span>(48)</span></button>
+      <button class="category-tab" type="button" data-category="Semen & Perekat"><span class="tab-icon">◉</span> Semen &amp; Perekat <span>(12)</span></button>
+      <button class="category-tab" type="button" data-category="Besi & Kawat">Besi &amp; Kawat <span>(14)</span></button>
+      <button class="category-tab" type="button" data-category="Bata & Hebel">Bata &amp; Hebel <span>(8)</span></button>
+      <button class="category-tab" type="button" data-category="Cat & Waterproofing">Cat &amp; Waterproofing <span>(9)</span></button>
+      <button class="category-tab" type="button" data-category="Pipa PVC & Fitting">Pipa PVC &amp; Fitting <span>(5)</span></button>
+    </nav>
+
+    <section class="product-section" aria-labelledby="productListTitle">
+      <div class="page-width">
+        <div class="product-list-heading">
+          <p><b id="productListTitle">Daftar Produk</b><span class="heading-dot">•</span><span id="resultSummary">Semua Kategori • Ditemukan 6 produk</span></p>
+          <div class="stock-legend"><span><i class="legend-ready"></i> Ready di Gudang</span><span><i class="legend-out"></i> Stok Habis</span></div>
+        </div>
+
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <p class="loading-state" id="loadingState" role="status" hidden>Memuat katalog produk...</p>
+        <p class="empty-state" id="emptyState" role="status" hidden>Produk tidak ditemukan. Coba kata kunci atau kategori lain.</p>
+        <p class="error-state" id="errorState" role="alert" hidden>Katalog gagal dimuat dari server. Periksa koneksi, lalu coba lagi.</p>
+
+        <div class="trust-strip" aria-label="Keunggulan toko">
+          <div class="trust-item"><span class="trust-icon shield">♢</span><div><b>Jaminan Asli Semen Merah Putih</b><p>Distributor resmi langsung pabrik dengan garansi mutu dan timbangan presisi.</p></div></div>
+          <div class="trust-item"><span class="trust-icon truck">▱</span><div><b>Armada Pengiriman Siap Jalan</b><p>Armada pick-up dan truk siap bongkar di lokasi proyek hari yang sama.</p></div></div>
+          <div class="trust-item"><span class="trust-icon invoice">⇄</span><div><b>Harga Transparan &amp; Faktur Toko</b><p>Semua harga di katalog tercatat dan final tanpa biaya siluman.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="kontak">
+    <div class="footer-main page-width">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="../halaman.awal/index.html"><img src="../login/login&logo.assets/logo_cipta_jaya.png" alt=""><b>TB. CIPTA JAYA</b></a>
+        <p>Distributor resmi material bangunan bermutu tinggi. Mitra Resmi Semen Merah Putih dengan jaminan suplai cepat, transparan, dan terpercaya untuk proyek rumah hingga skala komersial.</p>
+        <span class="verified-badge"><i>✓</i> Mitra Resmi Terverifikasi</span>
+      </div>
+      <div class="footer-column"><h2>Lokasi &amp; Jam Kerja</h2><address>Jl. Raya Utama Material No. 88, Kawasan Niaga Bangunan, Jakarta Barat.</address><p>Buka Setiap Hari:<br><b>07:30 – 17:00 WIB</b></p></div>
+      <div class="footer-column"><h2>Kontak &amp; Pemesanan</h2><p>Layanan pemesanan aman &amp; cek stok real-time:</p><a class="contact-link" id="footerWhatsapp" href="#kontak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path></svg> 0812-xxxx-xxxx</a></div>
+    </div>
+    <div class="footer-bottom"><div class="page-width"><span>© 2024 TB. Cipta Jaya - Mitra Resmi Semen Merah Putih. Hak Cipta Dilindungi.</span><nav aria-label="Tautan footer"><a href="../halaman.awal/index.html">Katalog Beranda</a><a href="../login/login.html">Area Pengelola</a></nav></div></div>
+  </footer>
+
+  <aside class="floating-cart" id="floatingCart" aria-label="Ringkasan keranjang">
+    <span class="floating-cart-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg><span id="floatingCount">0</span></span>
+    <span class="floating-cart-copy"><small>Keranjang Belanja: <b id="floatingItems">0 Barang</b></small><strong id="floatingTotal">Rp 0</strong></span>
+    <button class="checkout-button" id="openCartBottom" type="button">Lihat &amp; Checkout <span aria-hidden="true">→</span></button>
+  </aside>
+
+  <dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailTitle">
+    <button class="dialog-close" id="closeDetail" type="button" aria-label="Tutup detail">×</button>
+    <img id="detailImage" alt="">
+    <div class="detail-content"><p class="eyebrow" id="detailCategory"></p><h2 id="detailTitle"></h2><p id="detailDescription"></p><p class="detail-stock" id="detailStock"></p><strong class="detail-price" id="detailPrice"></strong><button class="button button-primary" id="detailAdd" type="button">＋ Tambah ke Keranjang</button></div>
+  </dialog>
+
+  <dialog class="cart-dialog" id="cartDialog" aria-labelledby="cartTitle">
+    <div class="cart-dialog-heading"><div><p class="eyebrow">PESANAN ANDA</p><h2 id="cartTitle">Keranjang Belanja</h2></div><button class="dialog-close" id="closeCart" type="button" aria-label="Tutup keranjang">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <p class="cart-empty" id="cartEmpty">Keranjang masih kosong. Pilih material untuk kebutuhan proyek Anda.</p>
+    <div class="cart-dialog-footer"><span>Total pesanan</span><strong id="dialogCartTotal">Rp 0</strong><a class="button button-whatsapp" id="checkoutWhatsapp" href="#kontak">Lihat &amp; Checkout via WhatsApp</a><a class="cart-page-link" href="../halaman.4/index.html">Buka halaman keranjang lengkap</a></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
