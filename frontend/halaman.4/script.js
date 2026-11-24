@@ -3,6 +3,7 @@
  * this file to connect checkout to the order API and store WhatsApp account.
  */
 const API_BASE = String(window.CIPTA_API_BASE || "").replace(/\/+$/, "");
+const API_ENABLED = window.CIPTA_API_ENABLED ?? (window.location.protocol !== "file:" || Boolean(API_BASE));
 const CART_STORAGE_KEY = "cipta-jaya-cart";
 const money = new Intl.NumberFormat("id-ID");
 const demoCart = [
@@ -111,7 +112,7 @@ function loadCart() {
     storageError = "Keranjang tidak dapat dibaca dari browser. Periksa pengaturan penyimpanan atau muat ulang halaman.";
     return;
   }
-  if (stored === null && !API_BASE) {
+  if (stored === null && !API_ENABLED) {
     cart = new Map(demoCart.map(entry => [entry.product.id, entry]));
     return;
   }
@@ -223,17 +224,20 @@ function setWhatsappLinks() {
   }
 }
 
-function checkoutMessage(name, address, notes, orderId) {
+function checkoutMessage(name, address, notes, order) {
+  const items = order?.items?.length
+    ? order.items.map(item => `- ${item.name} (${item.quantity} ${item.unit}) x ${formatPrice(item.unitPrice)} = ${formatPrice(item.lineTotal)}`)
+    : cartEntries().map(({product, quantity}) =>
+      `- ${product.name} (${quantity} ${product.unit}) x ${formatPrice(product.price)} = ${formatPrice(product.price * quantity)}`
+    );
   return [
     "Halo Cipta Jaya, saya ingin memesan material berikut:",
-    ...cartEntries().map(({product, quantity}) =>
-      `- ${product.name} (${quantity} ${product.unit}) x ${formatPrice(product.price)} = ${formatPrice(product.price * quantity)}`
-    ),
-    `Total sementara: ${formatPrice(cartTotal())}`,
+    ...items,
+    `Total sementara: ${formatPrice(order?.total ?? cartTotal())}`,
     `Nama pemesan: ${name}`,
     `Alamat proyek: ${address}`,
     notes ? `Catatan armada: ${notes}` : "",
-    orderId ? `Referensi pesanan: ${orderId}` : "",
+    order?.id ? `Referensi pesanan: ${order.id}` : "",
     "Mohon konfirmasi ketersediaan, harga, dan ongkos kirim sebelum pesanan diproses."
   ].filter(Boolean).join("\n");
 }
@@ -256,15 +260,15 @@ async function submitCheckout(event) {
 
   const button = document.querySelector("#checkoutButton");
   button.disabled = true;
-  button.textContent = API_BASE ? "Memeriksa pesanan..." : "Menyiapkan WhatsApp...";
+  button.textContent = API_ENABLED ? "Memeriksa pesanan..." : "Menyiapkan WhatsApp...";
   try {
     const customer = {
       name: document.querySelector("#customerName").value.trim(),
       address: document.querySelector("#deliveryAddress").value.trim(),
       notes: document.querySelector("#deliveryNotes").value.trim()
     };
-    let orderId = "";
-    if (API_BASE) {
+    let order = null;
+    if (API_ENABLED) {
       const response = await fetch(`${API_BASE}/api/orders/checkout-intent`, {
         method: "POST",
         credentials: "include",
@@ -278,11 +282,10 @@ async function submitCheckout(event) {
       if (!response.ok) {
         throw new Error(payload?.message || `Checkout gagal (HTTP ${response.status}). Periksa stok dan coba lagi.`);
       }
-      const order = payload?.data || payload?.order || payload;
-      orderId = String(order?.id || order?.orderId || "");
+      order = payload?.data || payload?.order || payload;
     }
 
-    const url = whatsappUrl(checkoutMessage(customer.name, customer.address, customer.notes, orderId));
+    const url = whatsappUrl(checkoutMessage(customer.name, customer.address, customer.notes, order));
     if (!url) throw new Error("Nomor WhatsApp toko belum dikonfigurasi.");
     window.location.assign(url);
   } catch (error) {

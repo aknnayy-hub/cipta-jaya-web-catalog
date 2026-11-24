@@ -3,6 +3,7 @@
  * The public endpoints must only expose products intended for customer view.
  */
 const API_BASE = String(window.CIPTA_API_BASE || "").replace(/\/+$/, "");
+const API_ENABLED = window.CIPTA_API_ENABLED ?? (window.location.protocol !== "file:" || Boolean(API_BASE));
 const DEFAULT_PRODUCT_ID = "semen-merah-putih-watershield-50kg";
 const productId = String(
   window.CIPTA_PRODUCT_ID
@@ -111,12 +112,12 @@ function loadSavedCart() {
 }
 
 const cart = loadSavedCart();
-let product = API_BASE
+let product = API_ENABLED
   ? null
   : productId === DEFAULT_PRODUCT_ID
     ? sampleProduct
     : sampleRecommendations.find(item => item.id === productId) || sampleProduct;
-let recommendations = API_BASE ? [] : sampleRecommendations;
+let recommendations = API_ENABLED ? [] : sampleRecommendations;
 let activeImage = "";
 let recommendationsFailed = false;
 let requestNumber = 0;
@@ -277,9 +278,16 @@ function renderProduct() {
   document.querySelector("#breadcrumbProduct").textContent = product.name;
   document.querySelector("#productCategory").textContent = product.category;
   document.querySelector("#productTitle").textContent = product.name;
-  document.querySelector("#productRating").textContent = Number(product.rating || 4.9).toLocaleString("id-ID");
-  document.querySelector("#reviewCount").textContent = `(${Number(product.reviewCount || 128).toLocaleString("id-ID")} Ulasan Mandor & Kontraktor)`;
-  document.querySelector("#soldCount").textContent = `Terjual > ${Number(product.soldCount || 3200).toLocaleString("id-ID")} ${product.unit?.split(" ")[0] || "Sak"}`;
+  const hasRating = product.rating != null && Number.isFinite(Number(product.rating));
+  document.querySelector("#productRating").textContent = hasRating
+    ? Number(product.rating).toLocaleString("id-ID")
+    : "—";
+  document.querySelector("#reviewCount").textContent = Number(product.reviewCount) > 0
+    ? `(${Number(product.reviewCount).toLocaleString("id-ID")} Ulasan Mandor & Kontraktor)`
+    : "(Belum ada ulasan)";
+  document.querySelector("#soldCount").textContent = Number(product.soldCount) > 0
+    ? `Terjual ${Number(product.soldCount).toLocaleString("id-ID")} ${product.unit?.split(" ")[0] || "unit"}`
+    : "Belum ada data penjualan";
   document.querySelector("#productSku").textContent = `SKU: ${product.sku || product.id}`;
   document.querySelector("#productPrice").textContent = formatPrice(product.price);
   document.querySelector("#productUnit").textContent = `/ ${product.unit}`;
@@ -494,7 +502,7 @@ function getProductList(payload) {
 }
 
 async function loadProduct() {
-  if (!API_BASE) {
+  if (!API_ENABLED) {
     renderProduct();
     renderRecommendations();
     return;
@@ -521,7 +529,7 @@ async function loadProduct() {
 }
 
 async function loadRecommendations() {
-  if (!API_BASE) {
+  if (!API_ENABLED) {
     renderRecommendations();
     return;
   }
@@ -658,7 +666,7 @@ document.querySelector("#checkoutWhatsapp").addEventListener("click", event => {
 });
 
 document.querySelector("#retryDetail").addEventListener("click", () => {
-  if (!API_BASE) return;
+  if (!API_ENABLED) return;
   document.querySelector("#detailError").hidden = true;
   loadProduct();
 });
