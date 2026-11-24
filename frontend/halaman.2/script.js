@@ -3,6 +3,7 @@
  * product endpoint. The endpoint must only return products intended for public view.
  */
 const API_BASE = String(window.CIPTA_API_BASE || "").replace(/\/+$/, "");
+const API_ENABLED = window.CIPTA_API_ENABLED ?? (window.location.protocol !== "file:" || Boolean(API_BASE));
 const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
 const categoryDefinitions = [
   {key: "all", label: "Semua Kategori"},
@@ -93,12 +94,12 @@ const sampleProducts = [
     mockupBadgeInImage: true
   }
 ];
-let products = API_BASE ? [] : [...sampleProducts];
+let products = API_ENABLED ? [] : [...sampleProducts];
 let activeCategory = "all";
 let activeProduct = null;
-let loading = Boolean(API_BASE);
+let loading = API_ENABLED;
 let loadFailed = false;
-let apiTotal = 48;
+let apiTotal = API_ENABLED ? 0 : 48;
 let apiCategoryCounts = null;
 let searchTimeout = 0;
 let requestNumber = 0;
@@ -225,6 +226,7 @@ function updateCategoryTabs() {
     button.classList.toggle("active", key === activeCategory);
     button.setAttribute("aria-pressed", String(key === activeCategory));
   }
+  document.querySelector("#skuCount").textContent = String(apiTotal);
 }
 
 function renderProducts() {
@@ -418,6 +420,8 @@ function normalizeProduct(product) {
 
 function updateLastUpdated(value) {
   if (typeof value !== "string" || !value.trim()) return;
+  const node = document.querySelector("#lastUpdated");
+  if (!node) return;
   const date = new Date(value);
   const output = Number.isNaN(date.getTime())
     ? value
@@ -426,11 +430,11 @@ function updateLastUpdated(value) {
       timeStyle: "short",
       timeZone: "Asia/Jakarta"
     }).format(date);
-  document.querySelector("#lastUpdated").textContent = output;
+  node.textContent = output;
 }
 
 async function loadProducts() {
-  if (!API_BASE) {
+  if (!API_ENABLED) {
     loading = false;
     loadFailed = false;
     renderProducts();
@@ -458,7 +462,7 @@ async function loadProducts() {
     const normalized = result.map(normalizeProduct);
     if (currentRequest !== requestNumber) return;
     products = normalized;
-    const total = Array.isArray(payload) ? normalized.length : Number(payload.total);
+    const total = Array.isArray(payload) ? normalized.length : Number(payload.totalPublished ?? payload.total);
     apiTotal = Number.isFinite(total) && total >= 0 ? total : normalized.length;
     apiCategoryCounts = Array.isArray(payload) ? null : payload.categoryCounts || null;
     updateLastUpdated(Array.isArray(payload) ? "" : payload.lastUpdated);
@@ -492,7 +496,7 @@ document.querySelector("#categoryTabs").addEventListener("click", event => {
 
 for (const button of document.querySelectorAll(".category-tab")) {
   const key = button.dataset.category;
-  const count = key === "all" ? 48 : ({
+  const count = key === "all" ? (API_ENABLED ? 0 : 48) : API_ENABLED ? 0 : ({
     "Semen & Perekat": 12,
     "Besi & Kawat": 14,
     "Bata & Hebel": 8,
@@ -509,7 +513,12 @@ for (const input of searchInputs) {
     for (const otherInput of searchInputs) {
       if (otherInput !== input) otherInput.value = input.value;
     }
-    if (!API_BASE) {
+    if (!API_ENABLED) {
+      const initialParams = new URLSearchParams(window.location.search);
+      const initialSearch = initialParams.get("search") || "";
+      const initialCategory = initialParams.get("category") || "all";
+      if (categoryDefinitions.some(item => item.key === initialCategory)) activeCategory = initialCategory;
+      for (const input of searchInputs) input.value = initialSearch;
       renderProducts();
       return;
     }

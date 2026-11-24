@@ -3,7 +3,9 @@
  * The API must return published products; admin authorization belongs on the server.
  */
 const API_BASE = (window.CIPTA_API_BASE || "").replace(/\/$/, "");
+const API_ENABLED = window.CIPTA_API_ENABLED ?? (window.location.protocol !== "file:" || Boolean(API_BASE));
 const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
+const CART_STORAGE_KEY = "cipta-jaya-cart";
 const categoryAliases = {
   "Semen & Pasir": ["semen", "mortar", "pasir"],
   "Besi & Baja": ["besi", "baja", "tulangan"],
@@ -54,11 +56,11 @@ const sampleProducts = [
     image: "assets/cat-waterproofing.jpg"
   }
 ];
-let products = API_BASE ? [] : [...sampleProducts];
+let products = API_ENABLED ? [] : [...sampleProducts];
 let activeCategory = "";
 let activeProduct = null;
 let loadFailed = false;
-let loading = Boolean(API_BASE);
+let loading = API_ENABLED;
 let catalogMode = false;
 let searchTimeout;
 let requestNumber = 0;
@@ -144,8 +146,53 @@ function renderProducts() {
   }).join("");
 }
 
+function updateCategoryCounts(counts = {}) {
+  const cards = [...document.querySelectorAll(".category-card[data-category]")];
+  for (const card of cards) {
+    const category = card.dataset.category;
+    const aliases = categoryAliases[category] || [];
+    const total = Object.entries(counts).reduce((sum, [name, count]) => {
+      const normalized = name.toLocaleLowerCase("id");
+      return sum + (category === "all" || aliases.some(alias => normalized.includes(alias)) ? Number(count) || 0 : 0);
+    }, 0);
+    const label = card.querySelector("small");
+    if (label) label.textContent = `${total} Produk`;
+  }
+}
+
 function cartProducts() {
   return [...cart.values()];
+}
+
+function loadCart() {
+  try {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (stored === null) return;
+    const entries = JSON.parse(stored);
+    if (!Array.isArray(entries)) throw new Error("Format keranjang tidak valid.");
+    for (const entry of entries) {
+      const product = entry?.product;
+      const quantity = Number(entry?.quantity);
+      if (product?.id == null || !product.name || !Number.isFinite(Number(product.price))
+          || !Number.isInteger(quantity) || quantity < 1) {
+        throw new Error("Isi keranjang tidak valid.");
+      }
+      cart.set(String(product.id), {product, quantity});
+    }
+  } catch (error) {
+    console.error("Keranjang tersimpan tidak dapat dibaca:", error);
+    toast("Keranjang tersimpan tidak dapat dibaca. Silakan susun ulang keranjang.");
+    cart.clear();
+  }
+}
+
+function persistCart() {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartProducts()));
+  } catch (error) {
+    console.error("Keranjang tidak dapat disimpan:", error);
+    toast("Perubahan keranjang tidak dapat disimpan di browser ini.");
+  }
 }
 
 function cartTotal() {
@@ -191,6 +238,7 @@ function addToCart(product) {
   const id = String(product.id);
   const current = cart.get(id);
   cart.set(id, {product, quantity: (current?.quantity || 0) + 1});
+  persistCart();
   renderCart();
   toast(`${product.name} ditambahkan ke keranjang.`);
 }
@@ -215,11 +263,11 @@ function setCategory(category) {
     button.classList.toggle("selected", button.dataset.category === activeCategory);
   });
   renderProducts();
-  if (API_BASE) loadProducts();
+  if (API_ENABLED) loadProducts();
 }
 
 async function loadProducts() {
-  if (!API_BASE) {
+  if (!API_ENABLED) {
     renderProducts();
     return;
   }
@@ -242,6 +290,7 @@ async function loadProducts() {
     if (!Array.isArray(result)) throw new Error("Respons API tidak berisi daftar produk.");
     if (currentRequest !== requestNumber) return;
     products = result;
+    if (!Array.isArray(payload)) updateCategoryCounts(payload.categoryCounts || {});
     loadFailed = false;
   } catch {
     if (currentRequest !== requestNumber) return;
@@ -293,7 +342,7 @@ for (const input of searchInputs) {
     for (const otherInput of searchInputs) {
       if (otherInput !== input) otherInput.value = input.value;
     }
-    if (!API_BASE) {
+    if (!API_ENABLED) {
       renderProducts();
       return;
     }
@@ -341,6 +390,7 @@ document.querySelector("#cartItems").addEventListener("click", event => {
     if (item.quantity <= 1) cart.delete(id);
     else cart.set(id, {...item, quantity: item.quantity - 1});
   }
+  persistCart();
   renderCart();
 });
 
@@ -376,6 +426,7 @@ document.querySelector("#checkoutWhatsapp").addEventListener("click", event => {
   event.currentTarget.rel = "noopener noreferrer";
 });
 
+loadCart();
 renderProducts();
 renderCart();
 loadProducts();

@@ -101,6 +101,13 @@ input {
   gap: 16px;
 }
 
+.login-error {
+  margin: 0;
+  color: #b42332;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .field {
   display: grid;
   gap: 4px;
