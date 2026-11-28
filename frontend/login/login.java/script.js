@@ -21,16 +21,26 @@ loginForm.addEventListener("submit", async event => {
   submitButton.querySelector("span").textContent = "Memproses...";
   const originalLabel = "Masuk ke Dashboard";
   try {
-    const response = await fetch(`${window.CIPTA_API_BASE || ""}/api/admin/login`, {
+    const defaultApiBase = ["http://127.0.0.1:3000", "http://localhost:3000"].includes(window.location.origin)
+      ? ""
+      : "http://127.0.0.1:3000";
+    const apiBase = (window.CIPTA_API_BASE || defaultApiBase).replace(/\/$/, "");
+    const response = await fetch(`${apiBase}/api/admin/login`, {
       method: "POST",
-      credentials: "same-origin",
+      credentials: "include",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         username: loginForm.elements.username.value.trim(),
         password: loginForm.elements.password.value
       })
     });
-    const payload = await response.json();
+    const rawText = await response.text();
+    let payload = {};
+    try {
+      payload = rawText ? JSON.parse(rawText) : {};
+    } catch {
+      throw new Error(`Respons server tidak valid (HTTP ${response.status}). Pastikan membuka lewat http://127.0.0.1:3000`);
+    }
     if (!response.ok) throw new Error(payload.message || "Login gagal. Periksa username dan kata sandi.");
     window.location.assign("../dashboard/dashboard.html");
   } catch (error) {

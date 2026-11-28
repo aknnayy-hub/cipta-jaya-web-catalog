@@ -116,18 +116,78 @@ rows.addEventListener("click", event => {
 function openDialog(product) {
   form.reset(); form.elements.id.value = product?.id || "";
   document.querySelector("#dialogTitle").textContent = product ? "Ubah Produk" : "Tambah Produk Baru";
+  const preview = document.querySelector("#photoPreview");
+  preview.innerHTML = "";
+  preview.classList.remove("has-image");
   if (product) {
-    for (const key of ["name","sku","category","price","unit","stockQty","wholesalePrice","wholesaleMin","image","description"]) {
+    for (const key of ["name","sku","category","price","unit","stockQty","wholesalePrice","wholesaleMin","description"]) {
       form.elements[key].value = product[key] ?? "";
     }
+    form.elements.image.value = product.image || "";
     form.elements.featured.checked = Boolean(product.featured);
     form.elements.published.checked = Boolean(product.published);
+    if (product.image) {
+      preview.innerHTML = `<img src="${escapeHtml(product.image)}" alt="Preview">`;
+      preview.classList.add("has-image");
+    }
   }
   dialog.showModal();
 }
 document.querySelector("#addProduct").addEventListener("click", () => openDialog());
 document.querySelector("#closeDialog").addEventListener("click", () => dialog.close());
 document.querySelector("#cancelDialog").addEventListener("click", () => dialog.close());
+
+// === Upload foto produk dari file picker ===
+const photoFileInput = document.querySelector("#photoFileInput");
+if (photoFileInput) {
+  photoFileInput.addEventListener("change", async () => {
+    const file = photoFileInput.files[0];
+    if (!file) return;
+
+    // Validasi ukuran (5 MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast("Ukuran file terlalu besar. Maksimum 5 MB.");
+      photoFileInput.value = "";
+      return;
+    }
+
+    // Preview lokal
+    const preview = document.querySelector("#photoPreview");
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      preview.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
+      preview.classList.add("has-image");
+    };
+    reader.readAsDataURL(file);
+
+    // Upload ke server jika API aktif
+    if (API_ENABLED) {
+      try {
+        const formData = new FormData();
+        formData.append("photo", file);
+        const response = await fetch(`${API_BASE}/api/admin/upload`, {
+          method: "POST",
+          credentials: "include",
+          body: formData
+        });
+        if (!response.ok) {
+          const payload = await response.json().catch(() => ({}));
+          throw new Error(payload.message || "Upload gagal");
+        }
+        const result = await response.json();
+        form.elements.image.value = result.data.path;
+        toast("Foto berhasil diunggah.");
+      } catch (error) {
+        toast("Upload foto gagal: " + error.message);
+        form.elements.image.value = "";
+      }
+    } else {
+      // Mode offline / fallback: pakai Data URL saja
+      form.elements.image.value = URL.createObjectURL(file);
+    }
+  });
+}
+
 form.addEventListener("submit", async event => {
   event.preventDefault(); const data = new FormData(form); const id = data.get("id");
   const product = {
@@ -137,7 +197,7 @@ form.addEventListener("submit", async event => {
     description:data.get("description").trim(),
     price:Number(data.get("price")),
     stockQty:Number(data.get("stockQty")),
-    image:data.get("image").trim(),
+    image:form.elements.image.value.trim(),
     unit:data.get("unit").trim(),
     wholesalePrice:data.get("wholesalePrice") ? Number(data.get("wholesalePrice")) : null,
     wholesaleMin:data.get("wholesaleMin") ? Number(data.get("wholesaleMin")) : null,

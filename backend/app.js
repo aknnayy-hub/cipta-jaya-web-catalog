@@ -5,8 +5,10 @@ const session = require("express-session");
 const helmet = require("helmet");
 const {rateLimit} = require("express-rate-limit");
 const {randomUUID} = require("node:crypto");
+const {uploadSingle} = require("./upload");
 
 const FRONTEND_ROOT = path.resolve(__dirname, "..", "frontend");
+const UPLOADS_ROOT = path.resolve(__dirname, "..", "uploads");
 const SESSION_MAX_AGE = 8 * 60 * 60 * 1000;
 const CATEGORY_SEARCH = {
   "Semen & Pasir": ["semen", "mortar", "pasir", "perekat", "acian"],
@@ -139,8 +141,23 @@ function createApp({pool, sessionStore, env = process.env}) {
     }
   }));
   app.use((req, res, next) => {
-    if (!["POST", "PUT", "PATCH", "DELETE"].includes(req.method)) return next();
     const origin = req.get("origin");
+    if (origin && env.NODE_ENV !== "production") {
+      try {
+        const parsed = new URL(origin);
+        if (["127.0.0.1", "localhost"].includes(parsed.hostname)) {
+          res.setHeader("Access-Control-Allow-Origin", origin);
+          res.setHeader("Access-Control-Allow-Credentials", "true");
+          res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+          res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+          if (req.method === "OPTIONS") return res.status(204).end();
+          return next();
+        }
+      } catch {
+        return res.status(403).json({message: "Origin permintaan tidak valid."});
+      }
+    }
+    if (!["POST", "PUT", "PATCH", "DELETE"].includes(req.method)) return next();
     if (origin) {
       try {
         if (new URL(origin).host !== req.get("host")) {
@@ -190,7 +207,7 @@ function createApp({pool, sessionStore, env = process.env}) {
       next(error);
     }
   });
-  app.post("/api/admin/login", loginLimiter, async (req, res, next) => {
+  const handleAdminLogin = async (req, res, next) => {
     const username = String(req.body?.username || "").trim();
     const password = String(req.body?.password || "");
     if (!username || !password || username.length > 80) {
@@ -216,7 +233,9 @@ function createApp({pool, sessionStore, env = process.env}) {
     } catch (error) {
       next(error);
     }
-  });
+  };
+  app.post("/api/admin/login", loginLimiter, handleAdminLogin);
+  app.post("/api/login", loginLimiter, handleAdminLogin);
   app.get("/api/admin/me", requireAdmin, (req, res) => res.json({user: req.session.user}));
   app.post("/api/admin/logout", requireAdmin, (req, res, next) => {
     req.session.destroy(error => {
@@ -515,11 +534,37 @@ function createApp({pool, sessionStore, env = process.env}) {
     }
   });
 
+  // === Upload foto produk (admin only) ===
+  app.post("/api/admin/upload", requireAdmin, (req, res, next) => {
+    uploadSingle(req, res, (error) => {
+      if (error) {
+        const status = error.code === "LIMIT_FILE_SIZE" ? 413 : 400;
+        return res.status(status).json({message: error.message || "Upload gagal."});
+      }
+      if (!req.file) {
+        return res.status(400).json({message: "Tidak ada file yang diunggah."});
+      }
+      // Kembalikan path relatif yang bisa langsung dipakai sebagai src gambar
+      const relativePath = `/uploads/products/${req.file.filename}`;
+      res.status(201).json({
+        data: {
+          filename: req.file.filename,
+          path: relativePath,
+          size: req.file.size,
+          mimetype: req.file.mimetype
+        }
+      });
+    });
+  });
+
   app.get("/", (req, res) => res.sendFile(path.join(FRONTEND_ROOT, "halaman.awal", "index.html")));
   app.get("/dashboard/dashboard.html", (req, res) => {
     if (req.session.user?.role !== "admin") return res.redirect("/login/login.html");
     res.sendFile(path.join(FRONTEND_ROOT, "dashboard", "dashboard.html"));
   });
+  // Sajikan folder uploads dan halaman.awal sebagai file statis
+  app.use("/uploads", express.static(UPLOADS_ROOT, {index: false}));
+  app.use(express.static(path.join(FRONTEND_ROOT, "halaman.awal"), {index: false}));
   app.use(express.static(FRONTEND_ROOT, {index: false}));
   app.use("/api", (req, res) => res.status(404).json({message: "Endpoint API tidak ditemukan."}));
   app.use((error, req, res, next) => {

@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "setup-admin": "node backend/setup-admin.js",
+    "seed-admin": "node backend/seed-admin.js",
     "test": "node --test"
   },
   "engines": {
@@ -19,6 +20,7 @@
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",
+    "multer": "^2.5.0",
     "mysql2": "^3.24.6"
   }
 }

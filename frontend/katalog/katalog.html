@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Katalog lengkap material bangunan Toko Cipta Jaya. Cek harga transparan, status stok real-time, dan pesan langsung via WhatsApp.">
+  <title>Katalog Produk | Cipta Jaya</title>
+  <link rel="icon" href="../login/login&logo.assets/logo_cipta_jaya.png">
+  <link rel="stylesheet" href="katalog.css">
+  <script src="katalog.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../halaman.awal/index.html" aria-label="Cipta Jaya, beranda">
+        <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="Logo Cipta Jaya">
+        <span class="brand-copy"><b>CIPTA JAYA</b><small>Mitra Resmi Semen Merah Putih</small></span>
+      </a>
+
+      <label class="header-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        <input id="headerSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..." aria-label="Cari produk">
+      </label>
+
+      <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primaryNav" aria-label="Navigasi utama">
+        <a class="nav-link" href="../halaman.awal/index.html">Beranda</a>
+        <a class="nav-link active" href="katalog.html">Katalog Produk</a>
+        <a class="nav-link" href="../tentang-kami/tentang-kami.html">Tentang &amp; Lokasi</a>
+        <a class="nav-link" href="../login/login.html">Login Admin</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="cart-button" href="../keranjang/keranjang.html" aria-label="Buka keranjang belanja">
+          <span class="cart-icon-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            <span class="cart-count" id="cartCount">0</span>
+          </span>
+          <span class="cart-total" id="cartTotal">Rp 0</span>
+        </a>
+        <a class="whatsapp-button" href="https://wa.me/62895366125869" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path><path d="M8.2 8.1c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.8c-.2.2-.2.4 0 .7.5.9 1.3 1.7 2.2 2.2.3.2.5.2.7 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .8-.4 1.5-1 1.8-.7.4-1.5.6-2.4.3-1.1-.3-2.5-.9-3.9-2.2s-2.4-2.9-2.7-4c-.3-1 0-1.8.4-2.2Z"></path></svg>
+          <span>WA Toko</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-width catalog-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../halaman.awal/index.html">Beranda</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Katalog Produk</span>
+    </nav>
+
+    <section class="catalog-hero">
+      <div>
+        <p class="eyebrow">KATALOG MATERIAL KONSTRUKSI</p>
+        <h1>Daftar Lengkap Produk Cipta Jaya</h1>
+        <p class="subtitle">Pilih material bangunan sesuai kebutuhan proyek Anda. Status stok diperbarui berkala untuk kemudahan pemesanan via WhatsApp.</p>
+      </div>
+      <div class="catalog-summary-pill">
+        <span>Total Ditampilkan:</span>
+        <strong id="resultCount">0 Produk</strong>
+      </div>
+    </section>
+
+    <section class="filter-bar" aria-label="Filter katalog">
+      <div class="category-chips" id="categoryChips" role="tablist" aria-label="Filter kategori">
+        <button class="chip active" type="button" data-category="all">Semua Kategori</button>
+        <button class="chip" type="button" data-category="Semen & Pasir">Semen &amp; Pasir</button>
+        <button class="chip" type="button" data-category="Besi & Baja">Besi &amp; Baja</button>
+        <button class="chip" type="button" data-category="Bata & Mortar">Bata &amp; Mortar</button>
+        <button class="chip" type="button" data-category="Cat Tembok">Cat Tembok</button>
+        <button class="chip" type="button" data-category="Pipa & Sanitari">Pipa &amp; Sanitari</button>
+        <button class="chip" type="button" data-category="Atap & Seng">Atap &amp; Seng</button>
+      </div>
+
+      <div class="filter-controls">
+        <label class="control-group">
+          <span>Status Stok</span>
+          <select id="stockFilter" aria-label="Filter status stok">
+            <option value="all">Semua Status</option>
+            <option value="ready">Ready (Tersedia)</option>
+            <option value="out">Tidak Ada (Stok Habis)</option>
+          </select>
+        </label>
+
+        <label class="control-group">
+          <span>Urutkan</span>
+          <select id="sortFilter" aria-label="Urutkan produk">
+            <option value="featured">Unggulan Terlebih Dahulu</option>
+            <option value="price-asc">Harga Terendah</option>
+            <option value="price-desc">Harga Tertinggi</option>
+            <option value="name-asc">Nama A - Z</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section aria-live="polite">
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon" aria-hidden="true">📦</div>
+        <h2>Produk tidak ditemukan pada kategori ini</h2>
+        <p>Coba ubah kata kunci pencarian atau pilih kategori lain untuk melihat material yang tersedia.</p>
+        <button class="button button-primary" id="resetFilters" type="button">Tampilkan Semua Produk</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main page-width">
+      <div class="footer-brand">
+        <a class="brand footer-brand-link" href="../halaman.awal/index.html">
+          <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="Logo Cipta Jaya">
+          <span class="brand-copy"><b>TB. CIPTA JAYA</b></span>
+        </a>
+        <p>Distributor resmi material bangunan bermutu tinggi. Mitra Resmi Semen Merah Putih untuk kebutuhan rumah, gedung, dan proyek infrastruktur.</p>
+        <span class="verified-badge"><span aria-hidden="true">✓</span> Mitra Resmi Terverifikasi</span>
+      </div>
+
+      <div class="footer-column">
+        <h2>Navigasi</h2>
+        <ul>
+          <li><a href="../halaman.awal/index.html">Beranda</a></li>
+          <li><a href="katalog.html">Katalog Produk</a></li>
+          <li><a href="../keranjang/keranjang.html">Keranjang Belanja</a></li>
+          <li><a href="../tentang-kami/tentang-kami.html">Tentang &amp; Lokasi</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h2>Lokasi &amp; Jam Kerja</h2>
+        <address>Setro, Kec. Menganti, Kabupaten Gresik, Jawa Timur 61174.</address>
+        <p class="footer-hours">Senin - Sabtu: 07.30 - 17.00 WIB</p>
+        <a class="footer-wa" href="https://wa.me/62895366125869" target="_blank" rel="noopener noreferrer">WhatsApp: +62 895-3661-25869</a>
+      </div>
+    </div>
+    <div class="footer-bottom page-width">
+      <span>&copy; 2026 Toko Bahan Bangunan Cipta Jaya. Seluruh hak cipta dilindungi.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

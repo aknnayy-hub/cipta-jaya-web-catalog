@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8ff">
+  <title>Pesanan Masuk | Cipta Jaya Admin</title>
+  <link rel="icon" href="../login/login&logo.assets/logo_cipta_jaya.png">
+  <link rel="stylesheet" href="pesanan.css">
+  <script src="pesanan.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="../dashboard/dashboard.html" aria-label="Cipta Jaya Admin Portal">
+        <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="Logo Cipta Jaya">
+        <span><b>CIPTA JAYA</b><small>Admin Portal</small></span>
+      </a>
+      <div class="staff">
+        <div class="avatar avatar-staff">SG</div>
+        <span><b>Staff Gudang</b><small>Superadmin</small></span>
+      </div>
+      <nav class="side-nav" aria-label="Navigasi admin">
+        <a href="../dashboard/dashboard.html"><span>▤</span> Kelola Produk</a>
+        <a class="active" href="pesanan.html"><span>▣</span> Pesanan Masuk</a>
+        <a href="../halaman.awal/index.html"><span>▤</span> Lihat Toko Publik</a>
+      </nav>
+      <a class="logout" href="../login/login.html"><span>⇥</span> Keluar Sistem</a>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Buka menu" aria-expanded="false">☰</button>
+        <label class="global-search">
+          <span>⌕</span>
+          <input id="orderSearch" type="search" placeholder="Cari ID pesanan atau nama pemesan..." aria-label="Cari pesanan">
+        </label>
+        <div class="top-actions">
+          <a href="https://wa.me/62895366125869" target="_blank" rel="noopener noreferrer" class="whatsapp"><span>▤</span> CS WhatsApp</a>
+          <span class="top-divider"></span>
+          <div class="user"><div class="avatar">BP</div><span><b>Budi P.</b><small>Staf Toko</small></span></div>
+          <a class="exit" href="../login/login.html">⇥ <span>Keluar</span></a>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="page-heading">
+          <div>
+            <div class="title-line">
+              <h1>Daftar Pesanan Masuk (WhatsApp)</h1>
+              <span class="store-pill"><i></i> Toko Cipta Jaya</span>
+            </div>
+            <p>Pantau rekap pesanan yang dikirim pelanggan dari keranjang katalog menuju WhatsApp Admin.</p>
+          </div>
+        </div>
+
+        <section class="stats" aria-label="Ringkasan pesanan">
+          <article class="stat-card">
+            <div><small>TOTAL PESANAN</small><strong id="totalOrders">0</strong><p>Rekap tercatat</p></div>
+            <span class="stat-icon blue">▣</span>
+          </article>
+          <article class="stat-card">
+            <div><small>MENUNGGU KONFIRMASI</small><strong id="pendingOrders">0</strong><p>Perlu respon WA</p></div>
+            <span class="stat-icon orange">◷</span>
+          </article>
+          <article class="stat-card">
+            <div><small>SELESAI</small><strong class="green-text" id="doneOrders">0</strong><p class="green">Pesanan diproses</p></div>
+            <span class="stat-icon green">✓</span>
+          </article>
+        </section>
+
+        <div class="toolbar">
+          <div class="filter-tabs" role="tablist" aria-label="Filter status pesanan">
+            <button class="filter-tab selected" data-status="all">Semua</button>
+            <button class="filter-tab" data-status="Menunggu">Menunggu</button>
+            <button class="filter-tab" data-status="Diproses">Diproses</button>
+            <button class="filter-tab" data-status="Selesai">Selesai</button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID Pesanan</th>
+                  <th>Pemesan &amp; Alamat</th>
+                  <th>Waktu Kirim</th>
+                  <th>Ringkasan Barang</th>
+                  <th>Total Harga</th>
+                  <th>Status Kirim</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="orderRows"></tbody>
+            </table>
+            <div class="empty-state" id="emptyState" hidden>Belum ada pesanan yang sesuai filter.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+
+  <dialog class="order-dialog" id="orderDialog">
+    <div class="dialog-box">
+      <div class="dialog-heading">
+        <div>
+          <h2 id="dialogOrderId">Detail Pesanan</h2>
+          <p id="dialogCustomer"></p>
+        </div>
+        <button type="button" class="close-dialog" id="closeDialog" aria-label="Tutup">×</button>
+      </div>
+      <div class="dialog-items" id="dialogItems"></div>
+      <div class="dialog-total">
+        <span>Total Estimasi</span>
+        <strong id="dialogTotal">Rp 0</strong>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
