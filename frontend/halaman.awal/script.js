@@ -2,8 +2,11 @@
  * Set window.CIPTA_API_BASE before this file to connect the public catalog API.
  * The API must return published products; admin authorization belongs on the server.
  */
-const API_BASE = (window.CIPTA_API_BASE || "").replace(/\/$/, "");
-const API_ENABLED = window.CIPTA_API_ENABLED ?? (window.location.protocol !== "file:" || Boolean(API_BASE));
+const DEFAULT_API_BASE = ["http://127.0.0.1:3000", "http://localhost:3000"].includes(window.location.origin)
+  ? ""
+  : "http://127.0.0.1:3000";
+const API_BASE = (window.CIPTA_API_BASE || DEFAULT_API_BASE).replace(/\/$/, "");
+const API_ENABLED = window.CIPTA_API_ENABLED ?? true;
 const PRODUCT_ENDPOINT = `${API_BASE}/api/products`;
 const CART_STORAGE_KEY = "cipta-jaya-cart";
 const categoryAliases = {

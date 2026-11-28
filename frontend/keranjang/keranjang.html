@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Kelola daftar material pilihan dan kirim rekap pesanan langsung ke WhatsApp Admin Toko Cipta Jaya.">
+  <title>Keranjang Belanja | Cipta Jaya</title>
+  <link rel="icon" href="../login/login&logo.assets/logo_cipta_jaya.png">
+  <link rel="stylesheet" href="keranjang.css">
+  <script src="keranjang.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../halaman.awal/index.html" aria-label="Cipta Jaya, beranda">
+        <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="Logo Cipta Jaya">
+        <span class="brand-copy"><b>CIPTA JAYA</b><small>Mitra Resmi Semen Merah Putih</small></span>
+      </a>
+
+      <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primaryNav" aria-label="Navigasi utama">
+        <a class="nav-link" href="../halaman.awal/index.html">Beranda</a>
+        <a class="nav-link" href="../katalog/katalog.html">Katalog Produk</a>
+        <a class="nav-link" href="../tentang-kami/tentang-kami.html">Tentang &amp; Lokasi</a>
+        <a class="nav-link" href="../login/login.html">Login Admin</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="cart-button active" href="keranjang.html" aria-label="Keranjang belanja">
+          <span class="cart-icon-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            <span class="cart-count" id="cartCount">0</span>
+          </span>
+          <span class="cart-total" id="cartTotal">Rp 0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-width cart-main">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../halaman.awal/index.html">Beranda</a>
+      <span aria-hidden="true">/</span>
+      <a href="../katalog/katalog.html">Katalog Produk</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Keranjang Belanja</span>
+    </nav>
+
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">PESANAN TANPA LOGIN</p>
+        <h1>Keranjang Belanja Anda</h1>
+      </div>
+      <a class="button button-outline" href="../katalog/katalog.html">+ Tambah Produk Lain</a>
+    </div>
+
+    <div class="cart-layout" id="cartLayout">
+      <section class="cart-items-card" aria-label="Daftar item keranjang">
+        <div id="cartItemsList"></div>
+      </section>
+
+      <aside class="summary-card" aria-label="Ringkasan pesanan">
+        <h2>Ringkasan Pesanan</h2>
+        <div class="summary-rows">
+          <div class="summary-row"><span>Total Item</span><strong id="summaryQty">0 item</strong></div>
+          <div class="summary-row total"><span>Total Estimasi</span><strong id="summaryTotal">Rp 0</strong></div>
+        </div>
+
+        <form class="customer-form" id="checkoutForm">
+          <label>
+            Nama Pemesan / Proyek
+            <input type="text" id="customerName" placeholder="Contoh: Budi / Proyek Menganti" maxlength="100" required>
+          </label>
+          <label>
+            Alamat Pengiriman
+            <textarea id="customerAddress" rows="2" placeholder="Masukkan alamat lengkap pengiriman..." maxlength="400" required></textarea>
+          </label>
+          <label>
+            Catatan (opsional)
+            <input type="text" id="customerNotes" placeholder="Contoh: Kirim pagi hari" maxlength="200">
+          </label>
+          <button class="button button-wa" type="submit" id="checkoutBtn">
+            Checkout &amp; Kirim ke WhatsApp
+          </button>
+        </form>
+        <p class="checkout-note">Pembayaran &amp; jadwal pengiriman dikonfirmasi langsung bersama Admin Cipta Jaya melalui WhatsApp.</p>
+      </aside>
+    </div>
+
+    <section class="empty-cart" id="emptyCart" hidden>
+      <div class="empty-icon" aria-hidden="true">🛒</div>
+      <h2>Keranjang masih kosong, silakan pilih produk terlebih dahulu</h2>
+      <p>Jelajahi katalog material bangunan Cipta Jaya dan tambahkan produk yang Anda butuhkan.</p>
+      <a class="button button-primary" href="../katalog/katalog.html">Kembali ke Katalog</a>
+    </section>
+  </main>
+
+  <dialog class="confirm-dialog" id="confirmDialog">
+    <div class="dialog-box">
+      <h3>Kirim pesanan?</h3>
+      <p>Rekap daftar barang dan total harga akan disiapkan untuk dikirim ke WhatsApp Admin Toko Cipta Jaya.</p>
+      <pre class="recap-preview" id="recapPreview"></pre>
+      <div class="dialog-actions">
+        <button class="button button-outline" type="button" id="confirmNo">Tidak</button>
+        <button class="button button-wa" type="button" id="confirmYes">Ya, Kirim ke WhatsApp</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="footer-bottom page-width">
+      <span>&copy; 2026 Toko Bahan Bangunan Cipta Jaya &bull; Setro, Kec. Menganti, Kab. Gresik.</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="id">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,7 @@
   <script src="/config.js"></script>
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="header-inner">
@@ -20,31 +22,45 @@
       </a>
 
       <label class="header-search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
-        <input id="catalogSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..." aria-label="Cari produk">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="6.8"></circle>
+          <path d="m16 16 5 5"></path>
+        </svg>
+        <input id="catalogSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..."
+          aria-label="Cari produk">
       </label>
 
-      <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+      <button class="menu-button" id="menuButton" type="button" aria-label="Buka menu" aria-expanded="false"
+        aria-controls="primaryNav">
         <span></span><span></span><span></span>
       </button>
 
       <nav class="primary-nav" id="primaryNav" aria-label="Navigasi utama">
         <a class="nav-link active" href="#beranda">Beranda</a>
         <a class="nav-link" href="#katalog">Katalog Produk</a>
-        <a class="nav-link" href="../dashboard/dashboard.html">Kelola Produk</a>
+        <a class="nav-link" href="../tentang-kami/tentang-kami.html">Tentang Kami</a>
         <a class="nav-link" href="../login/login.html">Login Admin</a>
       </nav>
 
       <div class="header-actions">
         <button class="cart-button" id="openCart" type="button" aria-label="Buka keranjang, 0 produk">
           <span class="cart-icon-wrap">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6"></path>
+              <circle cx="10" cy="20" r="1"></circle>
+              <circle cx="18" cy="20" r="1"></circle>
+            </svg>
             <span class="cart-count" id="cartCount">0</span>
           </span>
           <span class="cart-total" id="cartTotal">Rp 0</span>
         </button>
         <a class="whatsapp-button" id="headerWhatsapp" href="#kontak">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path><path d="M8.2 8.1c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.8c-.2.2-.2.4 0 .7.5.9 1.3 1.7 2.2 2.2.3.2.5.2.7 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .8-.4 1.5-1 1.8-.7.4-1.5.6-2.4.3-1.1-.3-2.5-.9-3.9-2.2s-2.4-2.9-2.7-4c-.3-1 0-1.8.4-2.2Z"></path></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path>
+            <path
+              d="M8.2 8.1c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.8 1.8c.1.2.1.4 0 .6l-.6.8c-.2.2-.2.4 0 .7.5.9 1.3 1.7 2.2 2.2.3.2.5.2.7 0l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.4.5 0 .8-.4 1.5-1 1.8-.7.4-1.5.6-2.4.3-1.1-.3-2.5-.9-3.9-2.2s-2.4-2.9-2.7-4c-.3-1 0-1.8.4-2.2Z">
+            </path>
+          </svg>
           <span>WA Toko</span>
         </a>
         <span class="profile-avatar" aria-label="Toko Cipta Jaya">CJ</span>
@@ -53,7 +69,10 @@
   </header>
 
   <label class="mobile-search page-width">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="10.8" cy="10.8" r="6.8"></circle>
+      <path d="m16 16 5 5"></path>
+    </svg>
     <input id="mobileSearch" type="search" placeholder="Cari semen, bata, cat tembok, pipa..." aria-label="Cari produk">
   </label>
 
@@ -62,7 +81,8 @@
       <div class="hero-copy">
         <p class="trust-label"><span></span> DISTRIBUTOR RESMI TERPERCAYA <i>•</i> Jakarta Barat</p>
         <h1 id="heroTitle">Toko Bahan Bangunan <span>Cipta Jaya</span></h1>
-        <p class="hero-description">Mitra Resmi Semen Merah Putih. Sedia material konstruksi lengkap, harga transparan, dan pemesanan praktis via WhatsApp tanpa ribet login.</p>
+        <p class="hero-description">Mitra Resmi Semen Merah Putih. Sedia material konstruksi lengkap, harga transparan,
+          dan pemesanan praktis via WhatsApp tanpa ribet login.</p>
 
         <ul class="benefit-list" aria-label="Keunggulan toko">
           <li><span class="benefit-icon">✓</span> Mitra Resmi Merah Putih</li>
@@ -73,11 +93,19 @@
 
         <div class="hero-actions">
           <a class="button button-primary" href="#katalog">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4m8-4v4M4 10h16"></path></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+              <path d="M8 3v4m8-4v4M4 10h16"></path>
+            </svg>
             Jelajahi Katalog Lengkap
           </a>
-          <a class="button button-whatsapp" href="#kontak">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path><path d="M8.5 8.3c.4-.7.6-.7.9-.7h.5l1.1 2.2-.9 1.1a7 7 0 0 0 3.2 3.1l1-1 2.1 1v.7c-.1.6-.7 1.1-1.4 1.3-1.1.3-2.7-.4-4.3-1.8-1.4-1.2-2.4-2.7-2.5-4 0-.8.1-1.4.3-1.9Z"></path></svg>
+          <a class="button button-whatsapp" href="https://api.whatsapp.com/send?phone=620895366125869">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path>
+              <path
+                d="M8.5 8.3c.4-.7.6-.7.9-.7h.5l1.1 2.2-.9 1.1a7 7 0 0 0 3.2 3.1l1-1 2.1 1v.7c-.1.6-.7 1.1-1.4 1.3-1.1.3-2.7-.4-4.3-1.8-1.4-1.2-2.4-2.7-2.5-4 0-.8.1-1.4.3-1.9Z">
+              </path>
+            </svg>
             Hubungi WhatsApp Admin
           </a>
         </div>
@@ -94,24 +122,28 @@
           <p class="eyebrow">NAVIGASI LANGSUNG</p>
           <h2 id="categoryTitle">Kategori Bahan Konstruksi</h2>
         </div>
-        <button class="text-link" type="button" data-category="all">Semua Kategori <span aria-hidden="true">→</span></button>
+        <button class="text-link" type="button" data-category="all">Semua Kategori <span
+            aria-hidden="true">→</span></button>
       </div>
 
       <div class="category-grid" id="categoryGrid">
         <button class="category-card" type="button" data-category="Semen & Pasir">
-          <span class="category-icon icon-red" aria-hidden="true">◉</span><b>Semen &amp; Pasir</b><small>0 Produk</small>
+          <span class="category-icon icon-red" aria-hidden="true">◉</span><b>Semen &amp; Pasir</b><small>0
+            Produk</small>
         </button>
         <button class="category-card" type="button" data-category="Besi & Baja">
           <span class="category-icon icon-blue" aria-hidden="true">⚒</span><b>Besi &amp; Baja</b><small>0 Produk</small>
         </button>
         <button class="category-card" type="button" data-category="Bata & Mortar">
-          <span class="category-icon icon-blue" aria-hidden="true">▦</span><b>Bata &amp; Mortar</b><small>0 Produk</small>
+          <span class="category-icon icon-blue" aria-hidden="true">▦</span><b>Bata &amp; Mortar</b><small>0
+            Produk</small>
         </button>
         <button class="category-card" type="button" data-category="Cat Tembok">
           <span class="category-icon icon-blue" aria-hidden="true">▣</span><b>Cat Tembok</b><small>0 Produk</small>
         </button>
         <button class="category-card" type="button" data-category="Pipa & Sanitari">
-          <span class="category-icon icon-blue" aria-hidden="true">⚒</span><b>Pipa &amp; Sanitari</b><small>0 Produk</small>
+          <span class="category-icon icon-blue" aria-hidden="true">⚒</span><b>Pipa &amp; Sanitari</b><small>0
+            Produk</small>
         </button>
         <button class="category-card" type="button" data-category="Atap & Seng">
           <span class="category-icon icon-blue" aria-hidden="true">⌂</span><b>Atap &amp; Seng</b><small>0 Produk</small>
@@ -125,7 +157,8 @@
           <div>
             <p class="eyebrow featured-eyebrow"><span aria-hidden="true">♨</span> SOROTAN TOKO</p>
             <h2 id="productsTitle">Produk Unggulan Pilihan (Best Seller)</h2>
-            <p class="section-description">Material konstruksi utama berstatus "Dipublikasikan" yang paling sering dipesan proyek.</p>
+            <p class="section-description">Material konstruksi utama berstatus "Dipublikasikan" yang paling sering
+              dipesan proyek.</p>
           </div>
           <span class="instant-note">Pemesanan instan direct WhatsApp</span>
         </div>
@@ -137,8 +170,11 @@
 
         <aside class="catalog-callout">
           <span class="callout-icon" aria-hidden="true">☰</span>
-          <div><b>Butuh material lain atau volume partai besar (truk/tronton)?</b><p>Kami menyediakan pasir bangka, split, baja ringan canal C, wiremesh, hingga spandek.</p></div>
-          <button class="button button-light" id="allCatalogButton" type="button">Buka Katalog Lengkap (140+ Produk) <span aria-hidden="true">›</span></button>
+          <div><b>Butuh material lain atau volume partai besar (truk/tronton)?</b>
+            <p>Kami menyediakan pasir bangka, split, baja ringan canal C, wiremesh, hingga spandek.</p>
+          </div>
+          <button class="button button-light" id="allCatalogButton" type="button">Buka Katalog Lengkap (140+ Produk)
+            <span aria-hidden="true">›</span></button>
         </aside>
       </div>
     </section>
@@ -151,7 +187,8 @@
           <img src="../login/login&logo.assets/logo_cipta_jaya.png" alt="">
           <span class="brand-copy"><b>TB. CIPTA JAYA</b></span>
         </a>
-        <p>Distributor resmi material bangunan bermutu tinggi. Mitra Resmi Semen Merah Putih dengan jaminan suplai cepat, transparan, dan terpercaya untuk proyek rumah hingga skala komersial.</p>
+        <p>Distributor resmi material bangunan bermutu tinggi. Mitra Resmi Semen Merah Putih dengan jaminan suplai
+          cepat, transparan, dan terpercaya untuk proyek rumah hingga skala komersial.</p>
         <span class="verified-badge"><span aria-hidden="true">✓</span> Mitra Resmi Terverifikasi</span>
       </div>
 
@@ -165,29 +202,46 @@
         <h2>Kontak &amp; Pemesanan</h2>
         <p>Layanan pemesanan aman &amp; cek stok real-time:</p>
         <a class="contact-link" id="footerWhatsapp" href="#kontak">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 11.7a8.6 8.6 0 0 1-12.7 7.6L3 20.5l1.3-4.6a8.6 8.6 0 1 1 16.2-4.2Z"></path>
+          </svg>
           0812-xxxx-xxxx
         </a>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="page-width"><span>© 2024 TB. Cipta Jaya - Mitra Resmi Semen Merah Putih. Hak Cipta Dilindungi.</span><nav aria-label="Tautan footer"><a href="#katalog">Katalog Lengkap</a><a href="../login/login.html">Area Pengelola</a></nav></div>
+      <div class="page-width"><span>© 2024 TB. Cipta Jaya - Mitra Resmi Semen Merah Putih. Hak Cipta Dilindungi.</span>
+        <nav aria-label="Tautan footer"><a href="#katalog">Katalog Lengkap</a><a href="../login/login.html">Area
+            Pengelola</a></nav>
+      </div>
     </div>
   </footer>
 
   <dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailTitle">
     <button class="dialog-close" id="closeDetail" type="button" aria-label="Tutup detail">×</button>
     <img id="detailImage" alt="">
-    <div class="detail-content"><p class="eyebrow" id="detailCategory"></p><h2 id="detailTitle"></h2><p id="detailDescription"></p><strong class="detail-price" id="detailPrice"></strong><button class="button button-primary" id="detailAdd" type="button">＋ Tambah ke Keranjang</button></div>
+    <div class="detail-content">
+      <p class="eyebrow" id="detailCategory"></p>
+      <h2 id="detailTitle"></h2>
+      <p id="detailDescription"></p><strong class="detail-price" id="detailPrice"></strong><button
+        class="button button-primary" id="detailAdd" type="button">＋ Tambah ke Keranjang</button>
+    </div>
   </dialog>
 
   <dialog class="cart-dialog" id="cartDialog" aria-labelledby="cartTitle">
-    <div class="cart-dialog-heading"><div><p class="eyebrow">PESANAN ANDA</p><h2 id="cartTitle">Keranjang Belanja</h2></div><button class="dialog-close" id="closeCart" type="button" aria-label="Tutup keranjang">×</button></div>
+    <div class="cart-dialog-heading">
+      <div>
+        <p class="eyebrow">PESANAN ANDA</p>
+        <h2 id="cartTitle">Keranjang Belanja</h2>
+      </div><button class="dialog-close" id="closeCart" type="button" aria-label="Tutup keranjang">×</button>
+    </div>
     <div class="cart-items" id="cartItems"></div>
     <p class="cart-empty" id="cartEmpty">Keranjang masih kosong. Yuk, pilih material untuk proyek Anda.</p>
-    <div class="cart-dialog-footer"><span>Total pesanan</span><strong id="dialogCartTotal">Rp 0</strong><a class="button button-whatsapp" id="checkoutWhatsapp" href="#kontak">Lanjutkan Pesanan via WhatsApp</a></div>
+    <div class="cart-dialog-footer"><span>Total pesanan</span><strong id="dialogCartTotal">Rp 0</strong><a
+        class="button button-whatsapp" id="checkoutWhatsapp" href="#kontak">Lanjutkan Pesanan via WhatsApp</a></div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
+
 </html>
